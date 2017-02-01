@@ -14,9 +14,13 @@ match_world = re.search("world", out, re.IGNORECASE)
 if match_hello and match_world :
     print "passed - has the words 'hello' and 'world'"
     sys.exit(0)
-elif not match_hello :
-    print "failed - missing the word 'hello'"
+elif not match_hello and not match_world :
+    print "failed - missing the words 'hello' and 'world'"
     sys.exit(1)
-else :
+elif not match_world:
     print "failed - missing the word 'world'"
     sys.exit(1)
+else :
+    print "failed - missing the word 'hello'"
+    sys.exit(1)
+    
