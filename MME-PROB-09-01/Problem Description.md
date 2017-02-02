@@ -13,14 +13,14 @@ Output the (x,y) coordinates of the two points of intersection between the two c
 Sample Test Case
 ----------------
 
-#Input
+### Input
 
 1 1
 -1 -1
 2
 2
 
-#Output
+### Output
 
 1 -1
 -1 1
