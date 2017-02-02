@@ -88,8 +88,8 @@ int main()
   double x_loc1 = (y_loc1*2*intermediate_B + intermediate_C)/(2*intermediate_A);
   double x_loc2 = (y_loc2*2*intermediate_B + intermediate_C)/(2*intermediate_A);
 
-  cout << "loc1: " << x_loc1 << ", " << y_loc1 << endl;
-  cout << "loc2: " << x_loc2 << ", " << y_loc2 << endl;
+  cout << "loc1: " << x_loc1 << " " << y_loc1 << endl;
+  cout << "loc2: " << x_loc2 << " " << y_loc2 << endl;
 
   return 0;
 }
