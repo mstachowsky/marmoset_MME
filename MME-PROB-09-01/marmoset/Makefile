@@ -2,7 +2,7 @@ LDFLAGS = -g
 CFLAGS = -Wno-write-strings -Wall -g -Werror
 CC = g++
 
-PUBLIC_TESTS = description_sample.py
+PUBLIC_TESTS = description_sample.py x_axis.py y_axis.py
 RELEASE_TESTS =
 SECRET_TESTS =
 ALL_TESTS = $(PUBLIC_TESTS) $(RELEASE_TESTS) $(SECRET_TESTS)

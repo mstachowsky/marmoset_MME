@@ -7,7 +7,7 @@ import re
 import sys
 
 cproc=Popen("./circle_intersection", stdin=PIPE, stderr=PIPE, stdout=PIPE)
-input = "1 1 -1 -1 2 2"
+input = "5 0 -5 0 7 7"
 out,err=cproc.communicate(input)
 
 numeric_const_pattern = r"""
@@ -31,10 +31,10 @@ if len(numbers) != 4 :
     sys.exit(1)
 
 for i in range(len(numbers)) :
-    numbers[i] = int(numbers[i])
+    numbers[i] = float(numbers[i])
 
-solution1 = [-1, 1, 1, -1]
-solution2 = [1, -1, -1, 1]
+solution1 = [0, 4.89898, 0, -4.89898]
+solution2 = [0, -4.89898, 0, 4.89898]
 
 match_solution1 = True
 match_solution2 = True

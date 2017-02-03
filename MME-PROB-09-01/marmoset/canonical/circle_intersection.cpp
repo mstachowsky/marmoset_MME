@@ -61,32 +61,40 @@ using namespace std;
 
 void get_data(double & x_tower1, double & y_tower1, double & r_tower1,
               double & x_tower2, double & y_tower2, double & r_tower2);
+void calc_loc(double x_tower1, double y_tower1, double r_tower1,
+              double x_tower2, double y_tower2, double r_tower2,
+              double & x_loc1, double & y_loc1,
+              double & x_loc2, double & y_loc2);
+void swap_xy(double & x_value, double & y_value);
 
 int main()
 {
   double x_tower1 = 0.0, y_tower1 = 0.0, r_tower1 = 0.0,
           x_tower2 = 0.0, y_tower2 = 0.0, r_tower2 = 0.0;
+  double x_loc1 = 0.0, y_loc1 = 0.0, x_loc2 = 0.0, y_loc2 = 0.0;
+
+  // this variable used if towers have the same x-coordinate, as it
+  // results in divide-by-zero. flip x-y coordinates, perform calcualtions
+  // and then flip them back
+  bool flip_xy = false;
 
   get_data(x_tower1, y_tower1, r_tower1, x_tower2, y_tower2, r_tower2);
 
-  double intermediate_A = x_tower2 - x_tower1;
-  double intermediate_B = y_tower1 - y_tower2;
-  double intermediate_C = - pow(x_tower1,2) + pow(x_tower2,2)
-                          - pow(y_tower1,2) + pow(y_tower2,2)
-                          + pow(r_tower1,2) - pow(r_tower2,2);
+  if (fabs(x_tower1 - x_tower2) < 1e-16)
+  {
+    flip_xy = true;
+    swap_xy(x_tower1, y_tower1);
+    swap_xy(x_tower2, y_tower2);
+  }
 
-  double quadratic_a = 4*pow(intermediate_B,2)/(4*pow(intermediate_A,2)) + 1;
-  double quadratic_b = 4*intermediate_B*intermediate_C/(4*pow(intermediate_A,2))
-                        - 4*intermediate_B*x_tower1/(2*intermediate_A) - 2*y_tower1;
-  double quadratic_c = 2*intermediate_C/(4*pow(intermediate_A,2))
-                        - 2*intermediate_C*x_tower1/(2*intermediate_A)
-                        + pow(x_tower1,2) + pow(y_tower1,2) - pow(r_tower1,2);
+  calc_loc(x_tower1, y_tower1, r_tower1, x_tower2, y_tower2, r_tower2,
+           x_loc1, y_loc1, x_loc2, y_loc2);
 
-  double y_loc1 = (- quadratic_b + sqrt(pow(quadratic_b,2) - 4*quadratic_a*quadratic_c))/(2*quadratic_a);
-  double y_loc2 = (- quadratic_b - sqrt(pow(quadratic_b,2) - 4*quadratic_a*quadratic_c))/(2*quadratic_a);
-
-  double x_loc1 = (y_loc1*2*intermediate_B + intermediate_C)/(2*intermediate_A);
-  double x_loc2 = (y_loc2*2*intermediate_B + intermediate_C)/(2*intermediate_A);
+  if (flip_xy)
+  {
+    swap_xy(x_loc1, y_loc1);
+    swap_xy(x_loc2, y_loc2);
+  }
 
   cout << "loc1: " << x_loc1 << " " << y_loc1 << endl;
   cout << "loc2: " << x_loc2 << " " << y_loc2 << endl;
@@ -110,4 +118,36 @@ void get_data(double & x_tower1, double & y_tower1, double & r_tower1,
 
   cout << "enter the distance to tower2: ";
   cin >> r_tower2;
+}
+
+void calc_loc(double x_tower1, double y_tower1, double r_tower1,
+              double x_tower2, double y_tower2, double r_tower2,
+              double & x_loc1, double & y_loc1,
+              double & x_loc2, double & y_loc2)
+{
+  double intermediate_A = x_tower2 - x_tower1;
+  double intermediate_B = y_tower1 - y_tower2;
+  double intermediate_C = - pow(x_tower1,2) + pow(x_tower2,2)
+                          - pow(y_tower1,2) + pow(y_tower2,2)
+                          + pow(r_tower1,2) - pow(r_tower2,2);
+
+  double quadratic_a = 4*pow(intermediate_B,2)/(4*pow(intermediate_A,2)) + 1;
+  double quadratic_b = 4*intermediate_B*intermediate_C/(4*pow(intermediate_A,2))
+                        - 4*intermediate_B*x_tower1/(2*intermediate_A) - 2*y_tower1;
+  double quadratic_c = 2*intermediate_C/(4*pow(intermediate_A,2))
+                        - 2*intermediate_C*x_tower1/(2*intermediate_A)
+                        + pow(x_tower1,2) + pow(y_tower1,2) - pow(r_tower1,2);
+
+  y_loc1 = (- quadratic_b + sqrt(pow(quadratic_b,2) - 4*quadratic_a*quadratic_c))/(2*quadratic_a);
+  y_loc2 = (- quadratic_b - sqrt(pow(quadratic_b,2) - 4*quadratic_a*quadratic_c))/(2*quadratic_a);
+
+  x_loc1 = (y_loc1*2*intermediate_B + intermediate_C)/(2*intermediate_A);
+  x_loc2 = (y_loc2*2*intermediate_B + intermediate_C)/(2*intermediate_A);
+}
+
+void swap_xy(double & x_value, double & y_value)
+{
+  double swap_value = x_value;
+  x_value = y_value;
+  y_value = swap_value;
 }
