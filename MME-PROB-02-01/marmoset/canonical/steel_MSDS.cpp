@@ -14,38 +14,40 @@ int main()
   double composition_chromium = 0.0;
   double composition_nickel = 0.0;
 
-  cout << "SDS ID No.: "
+  cout << "SDS ID No.: ";
   cin >> SDS;
 
-  cout << "Product Identifier: "
+  cout << "Product Identifier: ";
   for (int word_num = 0; word_num < 4; word_num++)
     cin >> product_identifier[word_num];
 
-  cout << "Carcinogenity: "
+  cout << "Carcinogenity: ";
   cin >> carcinogenity;
 
-  cout << "Reproductive Toxicity: "
+  cout << "Reproductive Toxicity: ";
   cin >> reproductive_toxicity;
 
-  cout << "STOT Repeat Exposure: "
+  cout << "STOT Repeat Exposure: ";
   cin >> STOT_repeat_exposure;
 
   cout << "Composition (% weight):" << endl;
-  cout << "Iron: "
+  cout << "Iron: ";
   cin >> composition_iron;
 
-  cout << "Manganese: "
+  cout << "Manganese: ";
   cin >> composition_manganese;
 
-  cout << "Chromium: "
+  cout << "Chromium: ";
   cin >> composition_chromium;
 
-  cout << "Nickel: "
+  cout << "Nickel: ";
   cin >> composition_nickel;
 
+  cout << endl;
   cout << "SDS: " << SDS << "     Identifier: ";
   for (int word_num = 0; word_num < 4; word_num++)
-    cout << product_identifier[word_num];
+    cout << product_identifier[word_num] << " ";
+  cout << endl;
 
   cout << "Hazard: "
        << carcinogenity << "-"
